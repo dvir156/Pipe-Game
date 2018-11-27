@@ -54,7 +54,7 @@ public class TestSetter {
 	// run your server here
 	static Server s;
 	public static void runServer(int port){
-		s=new MyServer(port);
+		s=new MyServer(port,2);
 		s.start(new MyClientHandler());
 	}
 	// stop your server here
