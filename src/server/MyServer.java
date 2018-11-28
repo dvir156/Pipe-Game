@@ -67,9 +67,11 @@ public class MyServer implements Server
     public void stop()
     {
         stop=true;
+        executor.stop();
     }
 
     public static void main(String[] args) {
+        //here you can change the number of threads M arg
         MyServer myServer = new MyServer(6400,2);
         myServer.start(new MyClientHandler());
     }

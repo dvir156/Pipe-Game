@@ -42,7 +42,7 @@ public class MyRunnable implements Runnable, Comparable<Runnable> {
     @SuppressWarnings("unchecked")
     @Override
     public void run() {
-
+      //  System.out.println("Executing in thread " + Thread.currentThread().getName());
         clientHandler.handle(inputS, outputS);
         try {
             inputS.close();
@@ -59,6 +59,7 @@ public class MyRunnable implements Runnable, Comparable<Runnable> {
         } catch (IOException e) {
             e.printStackTrace();
         }
+       //    System.out.println("finished in thread" + Thread.currentThread().getName());
     }
     public int getPriority() {
         return size;

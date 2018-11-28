@@ -62,15 +62,5 @@ public class MySolver implements Solver {
         }
     }
 
-    public static void main(String[] args) {
-        MySolver mySolver = new MySolver();
-        String level =  "s-7 \n"+
-                        " |L7\n"+
-                        "-F |\n"+
-                        "7F-J\n"+
-                        " g -";
 
-        System.out.println(mySolver.solve(level));
-
-    }
 }

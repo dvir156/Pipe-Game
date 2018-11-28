@@ -18,7 +18,9 @@ public class PriorityExecutorService{
         pick.execute(() -> {
             while (!stop) {
                 try {
-                    this.threadPool.execute(Queue.take());
+                    Runnable current = Queue.take();
+                   // System.out.println("executing" + current);
+                    this.threadPool.execute(current);
                 } catch (InterruptedException e) {
                     break;
                 }
@@ -32,5 +34,6 @@ public class PriorityExecutorService{
 
     public void stop() {
         this.stop = true;
+        threadPool.shutdown();
     }
 }
