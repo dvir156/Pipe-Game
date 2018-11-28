@@ -1,14 +1,12 @@
 package server;
 
 import algorithm.Searchable;
+import sun.misc.IOUtils;
+import sun.net.www.protocol.ftp.FtpURLConnection;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.io.PrintWriter;
+import java.io.*;
 import java.net.Socket;
-
-
+import java.nio.charset.StandardCharsets;
 
 
 public class MyRunnable implements Runnable, Comparable<Runnable> {
@@ -21,32 +19,47 @@ public class MyRunnable implements Runnable, Comparable<Runnable> {
     private ClientHandler clientHandler;
 
     @SuppressWarnings("rawtypes")
-    public MyRunnable(Socket aClient, InputStream is, OutputStream os, ClientHandler ch) {
+    public MyRunnable(Socket aClient, InputStream is, OutputStream os, ClientHandler ch) throws IOException {
         this.aClient = aClient;
         this.inputS = is;
         this.outputS = os;
         this.clientHandler = ch;
-       // this.size = is.;
+        size = is.available();
+
     }
+    
+//    public void getFileSize(InputStream inputStream ){
+//        InputStream is = size.getInputStream();
+//        ByteArrayOutputStream os = new ByteArrayOutputStream();
+//        int b;
+//        while ((b = is.read()) != -1)
+//            os.write(b);
+//        response.setContentLength(os.size());
+//        response.getOutputStream().write(os.toByteArray());
+//
+//    }
 
     @SuppressWarnings("unchecked")
     @Override
     public void run() {
+
+        clientHandler.handle(inputS, outputS);
         try {
-            clientHandler.handle(inputS,outputS);
-            try {
-                aClient.getInputStream().close();
-                aClient.getOutputStream().close();
-            } catch (Exception e) {
-                // e.printStackTrace();
-            }
+            inputS.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        try {
+            outputS.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        try {
             aClient.close();
         } catch (IOException e) {
-
-            // e.printStackTrace();
+            e.printStackTrace();
         }
     }
-
     public int getPriority() {
         return size;
     }

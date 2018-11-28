@@ -44,13 +44,13 @@ public class MyServer implements Server
                 try {
                     inputS = aClient.getInputStream();
                     outputS = aClient.getOutputStream();
-                    ch.handle(inputS, outputS);
+                   // ch.handle(inputS, outputS);
                     MyRunnable myRunnable = new MyRunnable(aClient, inputS, outputS,
                             ch);
                     executor.addRunnable(myRunnable);
-                    inputS.close();
-                    outputS.close();
-                    aClient.close();
+                   // inputS.close();
+                    //outputS.close();
+                    //aClient.close();
                     System.out.println("exit");
                 } catch (IOException e) {e.printStackTrace(); }
             }catch(SocketTimeoutException ignored){ }
